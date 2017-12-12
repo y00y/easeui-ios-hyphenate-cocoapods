@@ -38,7 +38,7 @@
 {
     // UIAppearance Proxy Defaults
     EaseBaseMessageCell *cell = [self appearance];
-    cell.avatarSize = 30;
+    cell.avatarSize = kEMAvatarSize;
     cell.avatarCornerRadius = 0;
     
     cell.messageNameColor = [UIColor grayColor];
@@ -163,7 +163,7 @@
     
     [self addConstraint:[NSLayoutConstraint constraintWithItem:self.avatarView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeRight multiplier:1.0 constant:-EaseMessageCellPadding]];
     
-    self.avatarWidthConstraint = [NSLayoutConstraint constraintWithItem:self.avatarView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:self.avatarSize];
+    self.avatarWidthConstraint = [NSLayoutConstraint constraintWithItem:self.avatarView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:kEMAvatarSize];
     [self addConstraint:self.avatarWidthConstraint];
     [self addConstraint:[NSLayoutConstraint constraintWithItem:self.avatarView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.avatarView attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0]];
     
@@ -202,7 +202,7 @@
     
     [self addConstraint:[NSLayoutConstraint constraintWithItem:self.avatarView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeft multiplier:1.0 constant:EaseMessageCellPadding]];
     
-    self.avatarWidthConstraint = [NSLayoutConstraint constraintWithItem:self.avatarView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:self.avatarSize];
+    self.avatarWidthConstraint = [NSLayoutConstraint constraintWithItem:self.avatarView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:kEMAvatarSize];
     [self addConstraint:self.avatarWidthConstraint];
     [self addConstraint:[NSLayoutConstraint constraintWithItem:self.avatarView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.avatarView attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0]];
     
@@ -232,7 +232,7 @@
     if (self.avatarView) {
         [self removeConstraint:self.avatarWidthConstraint];
         
-        self.avatarWidthConstraint = [NSLayoutConstraint constraintWithItem:self.avatarView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0 constant:self.avatarSize];
+        self.avatarWidthConstraint = [NSLayoutConstraint constraintWithItem:self.avatarView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0 constant:kEMAvatarSize];
         [self addConstraint:self.avatarWidthConstraint];
     }
 }
@@ -359,7 +359,7 @@
 {
     EaseBaseMessageCell *cell = [self appearance];
     
-    CGFloat minHeight = cell.avatarSize + EaseMessageCellPadding * 2;
+    CGFloat minHeight = kEMAvatarSize + EaseMessageCellPadding * 2;
     CGFloat height = cell.messageNameHeight;
     if ([UIDevice currentDevice].systemVersion.floatValue == 7.0) {
         height = 15;

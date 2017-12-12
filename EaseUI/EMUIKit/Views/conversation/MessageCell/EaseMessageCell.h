@@ -25,6 +25,10 @@
 #define kEMMessageLocationHeight 95
 /** @brief 语音消息cell的高度 */
 #define kEMMessageVoiceHeight 23
+/** @brief 头像尺寸大小 */
+#define kEMAvatarSize 27
+/** @brief 消息显示字体 */
+#define kEMMessageTextFont [UIFont systemFontOfSize:15]
 
 extern CGFloat const EaseMessageCellPadding;
 

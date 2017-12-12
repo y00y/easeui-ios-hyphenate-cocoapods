@@ -23,6 +23,7 @@
 #import "EaseLocalDefine.h"
 
 CGFloat const EaseMessageCellPadding = 10;
+CGFloat const EaseMessageCellBubblePadding = 4;
 
 NSString *const EaseMessageCellIdentifierRecvText = @"EaseMessageCellRecvText";
 NSString *const EaseMessageCellIdentifierRecvLocation = @"EaseMessageCellRecvLocation";
@@ -63,12 +64,12 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     EaseMessageCell *cell = [self appearance];
     cell.statusSize = 20;
     cell.activitySize = 20;
-    cell.bubbleMaxWidth = 200;
+    cell.bubbleMaxWidth = [UIScreen mainScreen].bounds.size.width - (kEMAvatarSize + EaseMessageCellPadding) * 2.0 - EaseMessageCellBubblePadding * 2.0;
     cell.leftBubbleMargin = UIEdgeInsetsMake(8, 15, 8, 10);
     cell.rightBubbleMargin = UIEdgeInsetsMake(8, 10, 8, 15);
     cell.bubbleMargin = UIEdgeInsetsMake(8, 0, 8, 0);
     
-    cell.messageTextFont = [UIFont systemFontOfSize:15];
+    cell.messageTextFont = kEMMessageTextFont;
     cell.messageTextColor = [UIColor blackColor];
     
     cell.messageLocationFont = [UIFont systemFontOfSize:10];
@@ -168,7 +169,12 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
                 [_bubbleView setupTextBubbleView];
                 
                 _bubbleView.textLabel.font = _messageTextFont;
-                _bubbleView.textLabel.textColor = _messageTextColor;
+                if (self.model.isSender) {
+                    _bubbleView.textLabel.textColor=[UIColor whiteColor];
+                }
+                else{
+                    _bubbleView.textLabel.textColor = _messageTextColor;
+                }
             }
                 break;
             case EMMessageBodyTypeImage:
