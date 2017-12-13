@@ -25,16 +25,6 @@ extern NSString *const EaseMessageCellIdentifierSendFile;
 }
 
 /*
- *  头像尺寸大小
- */
-@property (nonatomic) CGFloat avatarSize UI_APPEARANCE_SELECTOR; //default 30; 改用kEMAvatarSize
-
-/*
- *  头像圆角
- */
-@property (nonatomic) CGFloat avatarCornerRadius UI_APPEARANCE_SELECTOR; //default 0;
-
-/*
  *  昵称显示字体
  */
 @property (nonatomic) UIFont *messageNameFont UI_APPEARANCE_SELECTOR; //default [UIFont systemFontOfSize:10];

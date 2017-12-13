@@ -70,12 +70,13 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     cell.bubbleMargin = UIEdgeInsetsMake(8, 0, 8, 0);
     
     cell.messageTextFont = kEMMessageTextFont;
-    cell.messageTextColor = [UIColor blackColor];
+    cell.messageRecTextColor = kEMMessageRecTextColor;
+    cell.messageSendTextColor = kEMMessageSendTextColor;
     
     cell.messageLocationFont = [UIFont systemFontOfSize:10];
     cell.messageLocationColor = [UIColor whiteColor];
     
-    cell.messageVoiceDurationColor = [UIColor grayColor];
+//    cell.messageVoiceDurationColor = [UIColor grayColor];
     cell.messageVoiceDurationFont = [UIFont systemFontOfSize:12];
     cell.voiceCellWidth = 75.f;
     
@@ -167,14 +168,7 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
             case EMMessageBodyTypeText:
             {
                 [_bubbleView setupTextBubbleView];
-                
                 _bubbleView.textLabel.font = _messageTextFont;
-                if (self.model.isSender) {
-                    _bubbleView.textLabel.textColor=[UIColor whiteColor];
-                }
-                else{
-                    _bubbleView.textLabel.textColor = _messageTextColor;
-                }
             }
                 break;
             case EMMessageBodyTypeImage:
@@ -196,7 +190,11 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
             case EMMessageBodyTypeVoice:
             {
                 [_bubbleView setupVoiceBubbleView];
-                
+                if (model.isSender) {
+                    _messageVoiceDurationColor = [UIColor whiteColor];
+                }else {
+                    _messageVoiceDurationColor = [UIColor colorWithWhite:0x25/255.0 alpha:1];
+                }
                 _bubbleView.voiceDurationLabel.textColor = _messageVoiceDurationColor;
                 _bubbleView.voiceDurationLabel.font = _messageVoiceDurationFont;
             }
@@ -344,7 +342,16 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
         switch (model.bodyType) {
             case EMMessageBodyTypeText:
             {
-                _bubbleView.textLabel.attributedText = [[EaseEmotionEscape sharedInstance] attStringFromTextForChatting:model.text textFont:self.messageTextFont];
+                NSMutableAttributedString *mAttrString = [[NSMutableAttributedString alloc]initWithAttributedString:[[EaseEmotionEscape sharedInstance] attStringFromTextForChatting:model.text textFont:_messageTextFont]];
+                
+                if (self.model.isSender) {
+                    _bubbleView.textLabel.textColor = _messageSendTextColor;
+                }
+                else{
+                    _bubbleView.textLabel.textColor = _messageRecTextColor;
+                    
+                }
+                _bubbleView.textLabel.attributedText = mAttrString;
             }
                 break;
             case EMMessageBodyTypeImage:
@@ -364,9 +371,9 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
                 break;
             case EMMessageBodyTypeLocation:
             {
+                
                 _bubbleView.locationLabel.text = _model.address;
-            }
-                break;
+            }                break;
             case EMMessageBodyTypeVoice:
             {
                 if (_bubbleView.voiceImageView) {
@@ -378,11 +385,14 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
                     }
                 }
                 if (!self.model.isSender) {
+                    _messageVoiceDurationColor = [UIColor colorWithWhite:0x25/255.0 alpha:1];
                     if (self.model.isMediaPlayed){
                         _bubbleView.isReadView.hidden = YES;
                     } else {
                         _bubbleView.isReadView.hidden = NO;
                     }
+                }else {
+                    _messageVoiceDurationColor = [UIColor whiteColor];
                 }
                 
                 if (_model.isMediaPlaying) {
@@ -516,11 +526,23 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     }
 }
 
-- (void)setMessageTextColor:(UIColor *)messageTextColor
+- (void)setMessageRecTextColor:(UIColor *)messageRecTextColor
 {
-    _messageTextColor = messageTextColor;
+    _messageRecTextColor = messageRecTextColor;
     if (_bubbleView.textLabel) {
-        _bubbleView.textLabel.textColor = _messageTextColor;
+        if (!_model.isSender) {
+            _bubbleView.textLabel.textColor = _messageRecTextColor;
+        }
+    }
+}
+
+- (void)setMessageSendTextColor:(UIColor *)messageSendTextColor
+{
+    _messageSendTextColor = messageSendTextColor;
+    if (_bubbleView.textLabel) {
+        if (_model.isSender) {
+            _bubbleView.textLabel.textColor = _messageSendTextColor;
+        }
     }
 }
 
@@ -805,7 +827,7 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     switch (model.bodyType) {
         case EMMessageBodyTypeText:
         {
-            NSAttributedString *text = [[EaseEmotionEscape sharedInstance] attStringFromTextForChatting:model.text textFont:cell.messageTextFont];
+            NSAttributedString *text = [[EaseEmotionEscape sharedInstance] attStringFromTextForChatting:model.text textFont:cell.messageTextFont ?: kEMMessageTextFont];
             CGRect rect = [text boundingRectWithSize:CGSizeMake(bubbleMaxWidth, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading context:nil];
             height += (rect.size.height > 20 ? rect.size.height : 20) + 10;
 //            NSString *text = model.text;

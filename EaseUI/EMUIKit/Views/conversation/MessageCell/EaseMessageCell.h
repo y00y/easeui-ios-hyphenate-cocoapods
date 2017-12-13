@@ -27,6 +27,10 @@
 #define kEMMessageVoiceHeight 23
 /** @brief 头像尺寸大小 */
 #define kEMAvatarSize 27
+/** @brief 消息接收显示颜色 */
+#define kEMMessageRecTextColor [UIColor colorWithWhite:0x25/255.0 alpha:1]
+/** @brief 消息发送显示颜色 */
+#define kEMMessageSendTextColor [UIColor whiteColor]
 /** @brief 消息显示字体 */
 #define kEMMessageTextFont [UIFont systemFontOfSize:15]
 
@@ -109,7 +113,12 @@ typedef enum{
 /*
  *  消息显示颜色
  */
-@property (nonatomic) UIColor *messageTextColor UI_APPEARANCE_SELECTOR; //default [UIColor blackColor];
+@property (nonatomic) UIColor *messageRecTextColor UI_APPEARANCE_SELECTOR; //default kEMMessageRecTextColor;
+
+/*
+ *  消息显示颜色
+ */
+@property (nonatomic) UIColor *messageSendTextColor UI_APPEARANCE_SELECTOR; //default kEMMessageSendTextColor;
 
 /*
  *  位置消息显示字体

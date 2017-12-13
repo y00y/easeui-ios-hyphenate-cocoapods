@@ -38,8 +38,7 @@
 {
     // UIAppearance Proxy Defaults
     EaseBaseMessageCell *cell = [self appearance];
-    cell.avatarSize = kEMAvatarSize;
-    cell.avatarCornerRadius = 0;
+    cell.avatarView.layer.cornerRadius = kEMAvatarSize/2.0;
     
     cell.messageNameColor = [UIColor grayColor];
     cell.messageNameFont = [UIFont systemFontOfSize:10];
@@ -281,7 +280,7 @@
                 _statusButton.hidden = YES;
                 [_activity stopAnimating];
                 if (self.model.isMessageRead) {
-                    _hasRead.hidden = NO;
+//                    _hasRead.hidden = NO;
                 }
             }
                 break;
@@ -320,22 +319,6 @@
     _messageNameHeight = messageNameHeight;
     if (_nameLabel) {
         [self _updateNameHeightConstraint];
-    }
-}
-
-- (void)setAvatarSize:(CGFloat)avatarSize
-{
-    _avatarSize = avatarSize;
-    if (self.avatarView) {
-        [self _updateAvatarViewWidthConstraint];
-    }
-}
-
-- (void)setAvatarCornerRadius:(CGFloat)avatarCornerRadius
-{
-    _avatarCornerRadius = avatarCornerRadius;
-    if (self.avatarView){
-        self.avatarView.layer.cornerRadius = avatarCornerRadius;
     }
 }
 

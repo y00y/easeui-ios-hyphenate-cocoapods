@@ -143,9 +143,6 @@ typedef enum : NSUInteger {
     [[EaseBaseMessageCell appearance] setSendMessageVoiceAnimationImages:@[[UIImage easeImageNamed:@"EaseUIResource.bundle/chat_sender_audio_playing_full"], [UIImage easeImageNamed:@"EaseUIResource.bundle/chat_sender_audio_playing_000"], [UIImage easeImageNamed:@"EaseUIResource.bundle/chat_sender_audio_playing_001"], [UIImage easeImageNamed:@"EaseUIResource.bundle/chat_sender_audio_playing_002"], [UIImage easeImageNamed:@"EaseUIResource.bundle/chat_sender_audio_playing_003"]]];
     [[EaseBaseMessageCell appearance] setRecvMessageVoiceAnimationImages:@[[UIImage easeImageNamed:@"EaseUIResource.bundle/chat_receiver_audio_playing_full"],[UIImage easeImageNamed:@"EaseUIResource.bundle/chat_receiver_audio_playing000"], [UIImage easeImageNamed:@"EaseUIResource.bundle/chat_receiver_audio_playing001"], [UIImage easeImageNamed:@"EaseUIResource.bundle/chat_receiver_audio_playing002"], [UIImage easeImageNamed:@"EaseUIResource.bundle/chat_receiver_audio_playing003"]]];
     
-    [[EaseBaseMessageCell appearance] setAvatarSize:40.f];
-    [[EaseBaseMessageCell appearance] setAvatarCornerRadius:20.f];
-    
     [[EaseChatBarMoreView appearance] setMoreViewBackgroundColor:[UIColor colorWithRed:240 / 255.0 green:242 / 255.0 blue:247 / 255.0 alpha:1.0]];
     
     [self tableViewDidTriggerHeaderRefresh];
@@ -1140,7 +1137,6 @@ typedef enum : NSUInteger {
             sendCell.selectionStyle = UITableViewCellSelectionStyleNone;
             sendCell.delegate = self;
         }
-        
         sendCell.model = model;
         return sendCell;
     }
