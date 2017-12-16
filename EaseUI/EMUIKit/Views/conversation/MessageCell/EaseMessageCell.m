@@ -76,7 +76,6 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     cell.messageLocationFont = [UIFont systemFontOfSize:10];
     cell.messageLocationColor = [UIColor whiteColor];
     
-//    cell.messageVoiceDurationColor = [UIColor grayColor];
     cell.messageVoiceDurationFont = [UIFont systemFontOfSize:12];
     cell.voiceCellWidth = 75.f;
     
@@ -190,12 +189,6 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
             case EMMessageBodyTypeVoice:
             {
                 [_bubbleView setupVoiceBubbleView];
-                if (model.isSender) {
-                    _messageVoiceDurationColor = [UIColor whiteColor];
-                }else {
-                    _messageVoiceDurationColor = [UIColor colorWithWhite:0x25/255.0 alpha:1];
-                }
-                _bubbleView.voiceDurationLabel.textColor = _messageVoiceDurationColor;
                 _bubbleView.voiceDurationLabel.font = _messageVoiceDurationFont;
             }
                 break;
@@ -385,14 +378,16 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
                     }
                 }
                 if (!self.model.isSender) {
-                    _messageVoiceDurationColor = [UIColor colorWithWhite:0x25/255.0 alpha:1];
+//                    _messageVoiceDurationColor = [UIColor colorWithWhite:0x25/255.0 alpha:1];
+                    _bubbleView.voiceDurationLabel.textColor = _messageRecTextColor;
                     if (self.model.isMediaPlayed){
                         _bubbleView.isReadView.hidden = YES;
                     } else {
                         _bubbleView.isReadView.hidden = NO;
                     }
                 }else {
-                    _messageVoiceDurationColor = [UIColor whiteColor];
+                    _bubbleView.voiceDurationLabel.textColor = _messageSendTextColor;
+//                    _messageVoiceDurationColor = [UIColor whiteColor];
                 }
                 
                 if (_model.isMediaPlaying) {
@@ -534,6 +529,11 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
             _bubbleView.textLabel.textColor = _messageRecTextColor;
         }
     }
+    if (_bubbleView.voiceDurationLabel) {
+        if (!_model.isSender) {
+            _bubbleView.voiceDurationLabel.textColor = _messageRecTextColor;
+        }
+    }
 }
 
 - (void)setMessageSendTextColor:(UIColor *)messageSendTextColor
@@ -542,6 +542,11 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     if (_bubbleView.textLabel) {
         if (_model.isSender) {
             _bubbleView.textLabel.textColor = _messageSendTextColor;
+        }
+    }
+    if (_bubbleView.voiceDurationLabel) {
+        if (_model.isSender) {
+            _bubbleView.voiceDurationLabel.textColor = _messageSendTextColor;
         }
     }
 }
@@ -572,13 +577,13 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     _recvMessageVoiceAnimationImages = recvMessageVoiceAnimationImages;
 }
 
-- (void)setMessageVoiceDurationColor:(UIColor *)messageVoiceDurationColor
-{
-    _messageVoiceDurationColor = messageVoiceDurationColor;
-    if (_bubbleView.voiceDurationLabel) {
-        _bubbleView.voiceDurationLabel.textColor = _messageVoiceDurationColor;
-    }
-}
+//- (void)setMessageVoiceDurationColor:(UIColor *)messageVoiceDurationColor
+//{
+//    _messageVoiceDurationColor = messageVoiceDurationColor;
+//    if (_bubbleView.voiceDurationLabel) {
+//        _bubbleView.voiceDurationLabel.textColor = _messageVoiceDurationColor;
+//    }
+//}
 
 - (void)setMessageVoiceDurationFont:(UIFont *)messageVoiceDurationFont
 {

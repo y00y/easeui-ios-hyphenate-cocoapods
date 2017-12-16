@@ -141,11 +141,6 @@ typedef enum{
 @property (nonatomic) NSArray *recvMessageVoiceAnimationImages UI_APPEARANCE_SELECTOR;
 
 /*
- *  语音消息显示颜色
- */
-@property (nonatomic) UIColor *messageVoiceDurationColor UI_APPEARANCE_SELECTOR; //default [UIColor grayColor];
-
-/*
  *  语音消息显示字体
  */
 @property (nonatomic) UIFont *messageVoiceDurationFont UI_APPEARANCE_SELECTOR; //default [UIFont systemFontOfSize:12];
