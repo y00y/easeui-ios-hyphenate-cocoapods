@@ -43,9 +43,12 @@
         [self setEdgesForExtendedLayout:UIRectEdgeNone];
     }
     
+#if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_10_3
     if (@available(iOS 11.0, *)) {
         self.additionalSafeAreaInsets = UIEdgeInsetsMake(0, 0, iPhoneX_BOTTOM_HEIGHT, 0);
     }
+#endif
+
     
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:self.style];
     _tableView.accessibilityIdentifier = @"table_view";

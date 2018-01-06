@@ -123,10 +123,12 @@
     return YES;
 }
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_10_3
 - (nullable UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return [self setupCellEditActions:indexPath];
 }
+#endif
 
 - (nullable NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -145,6 +147,8 @@
 
 - (id)setupCellEditActions:(NSIndexPath *)aIndexPath
 {
+    
+#if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_10_3
     if ([UIDevice currentDevice].systemVersion.floatValue < 11.0) {
         UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:NSLocalizedString(@"delete",@"Delete") handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
             [self deleteCellAction:indexPath];
@@ -161,6 +165,14 @@
         config.performsFirstActionWithFullSwipe = NO;
         return config;
     }
+#else
+    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:NSLocalizedString(@"delete",@"Delete") handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        [self deleteCellAction:indexPath];
+    }];
+    deleteAction.backgroundColor = [UIColor redColor];
+    return @[deleteAction];
+#endif
+
 }
 
 
