@@ -130,7 +130,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
                otherConfig:(NSDictionary *)otherConfig
 {
     [self _setupAppDelegateNotifications];
-    [self _registerRemoteNotification];
+//    [self _registerRemoteNotification];
     
     EMOptions *options = [EMOptions optionsWithAppkey:appkey];
     options.apnsCertName = apnsCertName;
