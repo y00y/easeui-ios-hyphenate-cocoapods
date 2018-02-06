@@ -1433,6 +1433,15 @@ typedef enum : NSUInteger {
             [(EaseRecordView *)self.recordView recordButtonTouchDown];
         }
     }
+    AVAuthorizationStatus videoAuthStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
+    if (videoAuthStatus == AVAuthorizationStatusNotDetermined) {
+        _isRecording = YES;
+        [self didCancelRecordingVoiceAction:recordView];
+        [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) {
+            
+        }];
+        return;
+    }
     
     [self _canRecordCompletion:^(EMRecordResponse recordResponse) {
         switch (recordResponse) {
